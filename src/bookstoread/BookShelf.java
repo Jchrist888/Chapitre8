@@ -7,20 +7,39 @@ public class BookShelf {
 
     private final List<Book> books = new ArrayList<>();
 
-    // Ajout de livres
-    public void add(Book... booksToAdd) {
-        books.addAll(Arrays.asList(booksToAdd));
-    }
-
-    // Retour ordre d'insertion (IMMUTABLE)
     public List<Book> books() {
         return Collections.unmodifiableList(books);
     }
 
-    // Tri SANS modifier la collection interne
-    public List<Book> arrange() {
+    public void add(Book... booksToAdd) {
+        books.addAll(Arrays.asList(booksToAdd));
+    }
+
+    /*public List<Book> arrange() {
         return books.stream()
-                .sorted(Comparator.comparing(Book::getTitle))
+                .sorted()
                 .collect(Collectors.toList());
     }
+
+     */
+
+    /*public List<Book> arrange() {
+        return books.stream().sorted().collect(Collectors.toList());
+    }
+    public List<Book> arrange(Comparator<Book> criteria) {
+        return null;
+    }
+
+     */
+
+    public List<Book> arrange() {
+        // return books.stream().sorted().collect(Collectors.toList());
+
+        return arrange(Comparator.naturalOrder());
+    }
+    public List<Book> arrange(Comparator<Book> criteria) {
+        return books.stream().sorted(criteria).collect(Collectors.toList());
+    }
+
+
 }
